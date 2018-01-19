@@ -11,6 +11,7 @@ biocLite("SNPRelate")
 
 library(gdsfmt)
 library(SNPRelate)
+library(shiny)
 
 # load VCF file
 
@@ -28,7 +29,8 @@ chr22 <- snpgdsOpen("Projekty/MBI/chr22.gds")
 snpsetcsv <- read.csv("~/Projekty/MBI/chr22-pruned.csv")
 snpsetcsv.id = unlist(snpsetcsv$chr22)
 
-pca <- snpgdsPCA(chr22, snp.id = snpsetcsv.id, num.thread=4)
+?snpgdsPCA
+pca <- snpgdsPCA(chr22, snp.id = snpsetcsv.id, num.thread=4, maf = 0.05)
 
 write.csv(pca, "~/Projekty/MBI/pca.csv")
 
@@ -91,3 +93,9 @@ View(pop_code)
 plot(tab$EV2, tab$EV1, xlab="eigenvector 2", ylab="eigenvector 1", col=as.integer(tab$pop))
 ?legend
 palette()
+
+
+runApp('mbi-app')
+
+
+
