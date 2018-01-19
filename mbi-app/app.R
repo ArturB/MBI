@@ -1,6 +1,9 @@
 library(shiny)
+<<<<<<< HEAD
 library(gdsfmt)
 library(SNPRelate)
+=======
+>>>>>>> 44ff7a27094198a2aa4171cc9166c356f87d5519
 
 # Define UI for app that draws a histogram ----
 ui <- fluidPage(
@@ -15,11 +18,19 @@ ui <- fluidPage(
     sidebarPanel(
       
       # Input: Slider for the number of bins ----
+<<<<<<< HEAD
       sliderInput(inputId = "maf",
                   label = "MAF threshold:",
                   min = 0,
                   max = 0.45,
                   value = 0.05)
+=======
+      sliderInput(inputId = "bins",
+                  label = "Number of bins:",
+                  min = 1,
+                  max = 50,
+                  value = 30)
+>>>>>>> 44ff7a27094198a2aa4171cc9166c356f87d5519
       
     ),
     
@@ -46,6 +57,7 @@ server <- function(input, output) {
   # 2. Its output type is a plot
   output$distPlot <- renderPlot({
     
+<<<<<<< HEAD
     chr22 <- snpgdsOpen("~/Projekty/MBI/mbi-app/chr22.gds")
     snpsetcsv <- read.csv("~/Projekty/MBI/chr22-pruned.csv")
     snpsetcsv.id = unlist(snpsetcsv$chr22)
@@ -65,6 +77,14 @@ server <- function(input, output) {
                       stringsAsFactors = FALSE)
     plot(tab$EV2, tab$EV1, xlab="eigenvector 2", ylab="eigenvector 1", col=as.integer(tab$pop))
     
+=======
+    x    <- faithful$waiting
+    bins <- seq(min(x), max(x), length.out = input$bins + 1)
+    
+    hist(x, breaks = bins, col = "#75AADB", border = "white",
+         xlab = "Waiting time to next eruption (in mins)",
+         main = "Histogram of waiting times")
+>>>>>>> 44ff7a27094198a2aa4171cc9166c356f87d5519
     
   })
   
