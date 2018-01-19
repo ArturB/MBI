@@ -60,8 +60,8 @@ server <- function(input, output) {
     # SAS = 5
     tab <- data.frame(sample.id = pca$sample.id,
                       pop = pop_code$super_pop,
-                      EV1 = pca$eigenvect[,2],    # the first eigenvector
-                      EV2 = pca$eigenvect[,3],    # the second eigenvector
+                      EV1 = pca$eigenvect[,1],    # the first eigenvector
+                      EV2 = pca$eigenvect[,4],    # the second eigenvector
                       stringsAsFactors = FALSE)
     plot(tab$EV2, tab$EV1, xlab="eigenvector 2", ylab="eigenvector 1", col=as.integer(tab$pop))
     
