@@ -11,6 +11,7 @@ biocLite("SNPRelate")
 
 library(gdsfmt)
 library(SNPRelate)
+library(shiny)
 
 # load VCF file
 
@@ -91,3 +92,9 @@ View(pop_code)
 plot(tab$EV2, tab$EV1, xlab="eigenvector 2", ylab="eigenvector 1", col=as.integer(tab$pop))
 ?legend
 palette()
+
+
+runApp('mbi-app')
+
+
+
