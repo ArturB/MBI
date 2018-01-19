@@ -6,7 +6,7 @@ library(SNPRelate)
 ui <- fluidPage(
   
   # App title ----
-  titlePanel("Hello Shiny!"),
+  titlePanel("MBI-17Z"),
   
   # Sidebar layout with input and output definitions ----
   sidebarLayout(
