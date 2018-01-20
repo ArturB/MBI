@@ -15,7 +15,7 @@ ui <- fluidPage(
       
       selectInput(inputId = "format", 
                   label = "File format", 
-                  choices = c("GDS", "VCF"), 
+                  choices = c("GDS", "VCF (may take 10min or longer)"), 
                   selected = "GDS"),
       
       textInput(inputId = "vcf", 
@@ -73,7 +73,7 @@ server <- function(input, output) {
     
     # Load VCF file
     if(input$format == "VCF") {
-      snpgdsVCF2GDS(input$vcf, paste0(input$vcf,".gds"), method="biallelic.only")
+      snpgdsVCF2GDS(input$vcf, paste0(input$vcf,".gds"), method="biallelic.only", num)
       chr22 <- snpgdsOpen(paste0(input$vcf,".gds"))
     }
     # Load GDS file
