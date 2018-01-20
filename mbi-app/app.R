@@ -1,6 +1,7 @@
 library(shiny)
 library(gdsfmt)
 library(SNPRelate)
+library(clusterCrit)
 
 # Define UI for app that draws a histogram ----
 ui <- fluidPage(
@@ -187,6 +188,12 @@ server <- function(input, output) {
       # Do hierarchical clustering
       ibs.hc <- snpgdsHCluster(ibs)
       rv <- snpgdsCutTree(ibs.hc, samp.group=as.factor(pop))
+
+      groups = cutree(ibs.hc$hclust, k = length(levels(pop)))
+      
+      indexes = extCriteria(as.integer(groups), 
+                            as.integer(as.factor(pop)), 
+                            c('Rand','Czekanowski_Dice'))
       
       plot(rv$dendrogram, 
            leaflab="none", 
