@@ -29,7 +29,7 @@ ui <- fluidPage(
       
       textInput(inputId = "ranges", 
                 label = "Path to file with chromosome ranges to analyze", 
-                value = ""),
+                value = "/home/artur/Projekty/MBI/mbi-app/chr22.ranges"),
       
       checkboxInput(inputId = "ld", 
                     label = "Use LD pruning (may take a longer time to complete)", 
@@ -72,6 +72,11 @@ server <- function(input, output) {
   # Make PCA plot
   output$pcaPlot <- renderPlot({
     
+    # Load range files
+    if(input$ranges != "") {
+      rng <- read.table(input$ranges, sep = '\t', header = TRUE)
+    }
+    
     # Load VCF file
     if(input$format == "VCF") {
       snpgdsVCF2GDS(input$vcf, paste0(input$vcf,".gds"), method="biallelic.only", num)
@@ -95,11 +100,16 @@ server <- function(input, output) {
       snpset.id = NULL
     }
     
-    # Choose chromosome ranges of required
+    # Select ranges from file
     if(input$ranges != "") {
-      rng <- read.table(input$ranges, sep = '\t', header = TRUE)
-      num_rng = length(rng$chromosomes)
+      num_rng = length(rng$Chromosome)
       selected = c()
+      for(i in 1:num_rng) {
+        from = strtoi(rng$From[i])
+        to   = strtoi(rng$To[i])
+        selected = append(selected, from:to)
+      }
+      snpset.id = selected
     }
     
     # Calculate PCA on samples
@@ -194,12 +204,15 @@ server <- function(input, output) {
       indexes = extCriteria(as.integer(groups), 
                             as.integer(as.factor(pop)), 
                             c('Rand','Czekanowski_Dice'))
+      print(indexes)
       
       plot(rv$dendrogram, 
            leaflab="none", 
            main=paste0("Populations dendrogram, MAF >= ", 
                        input$maf, ", ", 
-                       length(levels(as.factor(pop))), " groups"))
+                       length(levels(as.factor(pop))), " groups; \nAccuracy: ", 
+                       indexes$rand, "\nF-index:",
+                       indexes$czekanowski_dice))
       legend("bottomright", legend=levels(pop), text.col=1:nlevels(pop))
     }
   })

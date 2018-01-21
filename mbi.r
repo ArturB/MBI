@@ -30,6 +30,7 @@ snpsetcsv <- read.csv("~/Projekty/MBI/chr22-pruned.csv")
 snpsetcsv.id = unlist(snpsetcsv$chr22)
 
 ?snpgdsPCA
+?snpgdsLDpruning
 pca <- snpgdsPCA(chr22, snp.id = snpsetcsv.id, num.thread=4, maf = 0.05)
 
 write.csv(pca, "~/Projekty/MBI/pca.csv")
@@ -85,7 +86,7 @@ closestRelative1(test_pop[200, ])
 pop_code$super_pop_int = as.integer(tab$pop)
 
 
-
+ranges <- read.table("~/Projekty/MBI/mbi-app/chr22.ranges", sep = '\t', header = TRUE)
 
 
 View(pop_code)
