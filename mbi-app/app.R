@@ -204,7 +204,6 @@ server <- function(input, output) {
       indexes = extCriteria(as.integer(groups), 
                             as.integer(as.factor(pop)), 
                             c('Rand','Czekanowski_Dice'))
-      print(indexes)
       
       plot(rv$dendrogram, 
            leaflab="none", 
