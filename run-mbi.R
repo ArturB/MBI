@@ -1,3 +1,3 @@
 library(shiny)
 
-runApp('Projekty/MBI/mbi-app/')
+runApp('mbi-app/')

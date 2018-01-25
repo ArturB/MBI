@@ -21,15 +21,15 @@ ui <- fluidPage(
       
       textInput(inputId = "vcf", 
                 label = "Path to genome file", 
-                value = "~/Projekty/MBI/mbi-app/chr22.gds"),
+                value = "chr22.gds"),
       
       textInput(inputId = "pop", 
                 label = "Path to file with population labels", 
-                value = "~/Projekty/MBI/mbi-app/chr22.pop"),
+                value = "chr22.pop"),
       
       textInput(inputId = "ranges", 
                 label = "Path to file with chromosome ranges to analyze", 
-                value = "/home/artur/Projekty/MBI/mbi-app/chr22.ranges"),
+                value = "chr22.ranges"),
       
       checkboxInput(inputId = "ld", 
                     label = "Use LD pruning (may take a longer time to complete)", 
@@ -210,7 +210,7 @@ server <- function(input, output) {
            main=paste0("Populations dendrogram, MAF >= ", 
                        input$maf, ", ", 
                        length(levels(as.factor(pop))), " groups; \nAccuracy: ", 
-                       indexes$rand, "\nF-index:",
+                       indexes$rand, "\nF-index: ",
                        indexes$czekanowski_dice))
       legend("bottomright", legend=levels(pop), text.col=1:nlevels(pop))
     }
